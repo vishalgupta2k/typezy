@@ -1,52 +1,166 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>typezy — TypeScript validation utilities</title>
-    <meta name="description" content="typezy: A lightweight TypeScript utility library for type checking and validation." />
-    <link rel="canonical" href="https://vishalgupta2k.github.io/typezy/" />
-    <meta property="og:title" content="typezy — TypeScript validation utilities" />
-    <meta property="og:description" content="A lightweight TypeScript utility library for type checking and validation." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@vishalgupta2k" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-    <style>
-      body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; max-width: 780px; margin: 48px auto; padding: 0 16px; color: #0b1220 }
-      header h1 { margin: 0 0 8px; font-size: 28px }
-      header p { margin: 0 0 20px; color: #334155 }
-      pre { background:#0f1724; color:#fff; padding:12px; border-radius:6px; overflow:auto }
-    </style>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareSourceCode",
-      "name": "typezy",
-      "url": "https://github.com/vishalgupta2k/typezy",
-      "description": "A lightweight TypeScript utility library for type checking and validation",
-      "programmingLanguage": "TypeScript",
-      "license": "https://opensource.org/licenses/MIT",
-      "codeRepository": "https://github.com/vishalgupta2k/typezy",
-      "keywords": ["typescript","validation","is-string","is-number","assert"]
-    }
-    </script>
-  </head>
-  <body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Typezy — Full Package Documentation</title>
+  <meta name="description" content="Typezy: runtime type checks and assertions for JavaScript and TypeScript." />
+  <style>
+    :root{--bg:#071026;--card:#061423;--accent:#7c3aed;--teal:#06b6d4;--muted:#94a3b8}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#071527);color:#e7f0fb}
+    .wrap{max-width:1150px;margin:36px auto;padding:28px}
+    header{display:flex;gap:20px;align-items:center}
+    .logo{width:92px;height:92px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:800;color:#041023;font-size:22px;box-shadow:0 10px 30px rgba(4,10,20,0.6)}
+    h1{margin:0;font-size:30px}
+    .lead{color:var(--muted);margin-top:6px;font-size:15px}
+    nav{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+    a.cta{background:linear-gradient(90deg,var(--accent),var(--teal));padding:8px 12px;border-radius:10px;color:#041023;text-decoration:none;font-weight:700}
+    .cols{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:26px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:20px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+    .features{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .feature{flex:1;min-width:180px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+    pre{background:#021826;padding:14px;border-radius:10px;color:#cfeffd;overflow:auto}
+    code{background:rgba(2,6,23,0.6);padding:4px 8px;border-radius:6px;color:#9ae6ff}
+    .muted{color:var(--muted)}
+    table{width:100%;border-collapse:collapse;margin-top:8px}
+    td,th{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left}
+    footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
+    .example-title{display:flex;justify-content:space-between;align-items:center}
+    .pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px;color:var(--muted)}
+    @media(max-width:920px){.cols{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
     <header>
-      <h1>typezy</h1>
-      <p>A lightweight TypeScript utility library for type checking and validation.</p>
+      <div class="logo">TZ</div>
+      <div>
+        <h1>Typezy — Runtime Type Checks & Assertions</h1>
+        <div class="lead">Tiny, explicit helpers: `is*` for guards and `assert*` for throwing clear errors. Tree-shakable and ESM-first.</div>
+        <nav>
+          <a class="cta" href="#install">Install</a>
+          <a class="cta" href="#examples">Examples</a>
+          <a class="cta" href="#api">API</a>
+          <a class="cta" href="#contribute">Contribute</a>
+        </nav>
+      </div>
     </header>
 
-    <section>
-      <h2>Install</h2>
-      <pre>npm install typezy</pre>
-      <h2>Usage</h2>
-      <pre>import { isEmail } from 'typezy/is'
-// or
-import { capitalize } from 'typezy/utils'</pre>
-      <p>Project source and documentation: <a href="https://github.com/vishalgupta2k/typezy">GitHub</a></p>
-      <p>Published package: <a href="https://www.npmjs.com/package/typezy">npm</a></p>
-    </section>
-  </body>
+    <div class="cols">
+      <main>
+        <section class="card" id="install">
+          <h2>Install</h2>
+          <p class="muted">Add Typezy to your project with your preferred package manager.</p>
+          <pre><code>npm install --save typezy
+# or
+pnpm add typezy
+# or
+yarn add typezy</code></pre>
+
+          <div class="features">
+            <div class="feature">
+              <strong>Small & focused</strong>
+              <div class="muted">Minimal helpers that do one job well.</div>
+            </div>
+            <div class="feature">
+              <strong>Tree-shakeable</strong>
+              <div class="muted">Import single functions to keep bundles tiny.</div>
+            </div>
+            <div class="feature">
+              <strong>Well-tested</strong>
+              <div class="muted">Comprehensive unit tests show example usage.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="examples" style="margin-top:16px">
+          <div class="example-title">
+            <h2>Examples</h2>
+            <div class="pill">Practical snippets</div>
+          </div>
+
+          <h4 style="margin-top:10px">1) Form validation (client-side)</h4>
+          <pre><code>import { isEmail, assertNonEmptyString } from 'typezy'
+
+function validateRegistration(data) {
+  if (!isEmail(data.email)) return { ok:false, error:'Invalid email' }
+  assertNonEmptyString(data.name, 'Name is required')
+  return { ok:true }
+}</code></pre>
+
+          <h4 style="margin-top:10px">2) API input guards (server-side)</h4>
+          <pre><code>import { isObject, assertInRange, isInteger } from 'typezy'
+
+function handleListRequest(qs) {
+  const limit = isInteger(qs.limit) ? Number(qs.limit) : 20
+  assertInRange(limit, 1, 100)
+  // proceed using safe `limit`
+}</code></pre>
+
+          <h4 style="margin-top:10px">3) Safe parsing & validation</h4>
+          <pre><code>import { isJSON, isObject } from 'typezy'
+
+function parsePayload(raw) {
+  if (!isJSON(raw)) throw new Error('Bad payload')
+  const parsed = JSON.parse(raw)
+  if (!isObject(parsed)) throw new Error('Expected object')
+  return parsed
+}</code></pre>
+
+          <h4 style="margin-top:10px">4) Tests: assert helpers</h4>
+          <pre><code>import { assertUUID, assertEmail } from 'typezy'
+
+test('user payload', ()=>{
+  assertUUID(user.id)
+  assertEmail(user.email)
+})</code></pre>
+        </section>
+
+        <section class="card" id="api" style="margin-top:16px">
+          <h2>API Highlights</h2>
+          <p class="muted">Common helpers — see code for the full list and exact semantics.</p>
+          <table>
+            <thead><tr><th>Function</th><th>Type</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>isString(v)</strong></td><td>Guard</td><td>True for string primitives</td></tr>
+              <tr><td><strong>isNumber(v)</strong></td><td>Guard</td><td>True for finite numbers</td></tr>
+              <tr><td><strong>isEmail(v)</strong></td><td>Validator</td><td>Lightweight RFC-like check</td></tr>
+              <tr><td><strong>isUUID(v)</strong></td><td>Validator</td><td>v4 UUID format</td></tr>
+              <tr><td><strong>assertString(v,msg?)</strong></td><td>Assertion</td><td>Throws TypeError on failure</td></tr>
+              <tr><td><strong>assertInRange(n,min,max)</strong></td><td>Assertion</td><td>Throws RangeError when out of bounds</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>Quick links</h3>
+          <ul class="muted">
+            <li><a href="../README.md" style="color:#9ae6ff">README</a></li>
+            <li><a href="../src/index.ts" style="color:#9ae6ff">Source: src/index.ts</a></li>
+            <li><a href="../test/" style="color:#9ae6ff">Test suite</a></li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h4>Install & test</h4>
+          <pre><code>npm install
+npm run test
+# or
+pnpm test</code></pre>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h4>License</h4>
+          <p class="muted">MIT — <a href="../LICENSE" style="color:#9ae6ff">LICENSE</a></p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      Built with care • Open issues or PRs on GitHub for improvements.
+    </footer>
+  </div>
+</body>
 </html>
