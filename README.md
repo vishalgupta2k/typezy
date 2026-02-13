@@ -8,6 +8,7 @@ A lightweight, zero-dependency TypeScript utility library for type checking and 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/typezy)](https://bundlephobia.com/package/typezy)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://vishalgupta2k.github.io/typezy/)
 
 ## Features
 
