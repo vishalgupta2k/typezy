@@ -1,0 +1,11 @@
+# Ignore everything except what's needed for publishing
+*
+
+# Include distribution files
+!dist/
+!dist/**
+
+# Include documentation
+!README.md
+!LICENSE
+!package.json

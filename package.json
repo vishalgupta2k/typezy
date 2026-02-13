@@ -1,0 +1,107 @@
+{
+  "name": "typezy",
+  "version": "1.0.0",
+  "description": "A lightweight, zero-dependency TypeScript utility library for type checking and validation",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./is": {
+      "import": {
+        "types": "./dist/is/index.d.ts",
+        "default": "./dist/is/index.js"
+      },
+      "require": {
+        "types": "./dist/is/index.d.cts",
+        "default": "./dist/is/index.cjs"
+      }
+    },
+    "./assert": {
+      "import": {
+        "types": "./dist/assert/index.d.ts",
+        "default": "./dist/assert/index.js"
+      },
+      "require": {
+        "types": "./dist/assert/index.d.cts",
+        "default": "./dist/assert/index.cjs"
+      }
+    },
+    "./validate": {
+      "import": {
+        "types": "./dist/validate/index.d.ts",
+        "default": "./dist/validate/index.js"
+      },
+      "require": {
+        "types": "./dist/validate/index.d.cts",
+        "default": "./dist/validate/index.cjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.cts",
+        "default": "./dist/types/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "keywords": [
+    "typescript",
+    "type-check",
+    "validation",
+    "is-string",
+    "is-number",
+    "type-guard",
+    "assert",
+    "check",
+    "utils",
+    "utility"
+  ],
+  "author": "Vishal Gupta",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalgupta2k/typezy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vishalgupta2k/typezy/issues"
+  },
+  "homepage": "https://github.com/vishalgupta2k/typezy#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false
+}
