@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vishalgupta2k.github.io/typezy/sitemap.xml
