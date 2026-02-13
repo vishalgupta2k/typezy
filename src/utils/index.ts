@@ -21,6 +21,7 @@ export {
   truncate,
   removeAccents,
   escapeRegExp,
+  reverseString,
 } from './stringUtils.js';
 
 // Array utilities
