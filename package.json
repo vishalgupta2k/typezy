@@ -1,6 +1,6 @@
 {
   "name": "typezy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight, zero-dependency TypeScript utility library for type checking and validation",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
