@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Typezy Guide — Quickstart & Examples</title>
+  <style>
+    :root{--bg:#0f1724;--accent:#7c3aed;--muted:#94a3b8}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(#071029,#071527);color:#e8f0fb}
+    .wrap{max-width:980px;margin:48px auto;padding:28px}
+    header{display:flex;gap:16px;align-items:center}
+    .badge{width:84px;height:84px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#06b6d4);font-weight:800;color:#041124}
+    h1{margin:0;font-size:28px}
+    .lead{color:var(--muted);margin-top:6px}
+    .cols{display:grid;grid-template-columns:1fr 300px;gap:20px;margin-top:22px}
+    .card{background:rgba(255,255,255,0.02);padding:16px;border-radius:12px}
+    pre{background:#021826;padding:12px;border-radius:8px;color:#cfeffd;overflow:auto}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#041124;font-weight:700;text-decoration:none}
+    .muted{color:var(--muted)}
+    @media(max-width:880px){.cols{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="badge">TZ</div>
+      <div>
+        <h1>Typezy — Quickstart Guide</h1>
+        <div class="lead">Small, explicit helpers for runtime type checks and assertions.</div>
+      </div>
+    </header>
+
+    <div class="cols">
+      <main>
+        <section class="card">
+          <h2>Install</h2>
+          <pre><code>npm install --save typezy
+# or
+pnpm add typezy
+# or
+yarn add typezy</code></pre>
+
+          <h2 style="margin-top:12px">Basic usage</h2>
+          <p class="muted">Import only what you need — the package is ESM-friendly and tree-shakable.</p>
+          <pre><code>import { isEmail, assertNumber } from 'typezy'
+
+if (isEmail('you@example.com')) {
+  // valid
+}
+
+assertNumber(42) // throws on invalid</code></pre>
+
+          <h3 style="margin-top:12px">Common functions</h3>
+          <ul class="muted">
+            <li><strong>Type checks:</strong> isString, isNumber, isArray</li>
+            <li><strong>Validators:</strong> isEmail, isUUID, isIPv4</li>
+            <li><strong>Assertions:</strong> assertString, assertNonEmptyArray</li>
+          </ul>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <h2>Example — Form validation</h2>
+          <pre><code>import { assertEmail, assertNonEmptyString } from 'typezy'
+
+function submit(form) {
+  assertEmail(form.email)
+  assertNonEmptyString(form.name)
+  // safe to proceed
+}</code></pre>
+        </section>
+
+        <section class="card" style="margin-top:14px">
+          <h2>Contributing</h2>
+          <p class="muted">See the repository for tests and contribution guidelines. Tests demonstrate typical usage across the library.</p>
+          <pre><code>npm run test
+# or
+pnpm test</code></pre>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <h3>Resources</h3>
+          <ul class="muted">
+            <li><a href="index.html" style="color:#9ae6ff">Home docs</a></li>
+            <li><a href="../src/index.ts" style="color:#9ae6ff">Source</a></li>
+            <li><a href="../test/" style="color:#9ae6ff">Tests</a></li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h4>Contact</h4>
+          <p class="muted">Open an issue or PR on GitHub for questions or improvements.</p>
+          <p class="muted">Connect on LinkedIn: <a href="https://www.linkedin.com/in/ervishalg" style="color:#9ae6ff">ervishalg</a></p>
+        </div>
+      </aside>
+    </div>
+
+    <footer style="margin-top:20px;color:var(--muted);font-size:13px">Made with care — explore the codebase for full API details.</footer>
+  </div>
+</body>
+</html>
