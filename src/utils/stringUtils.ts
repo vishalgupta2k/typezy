@@ -302,3 +302,15 @@ export function escapeRegExp(value: string): string {
   }
   return value.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 }
+/**
+ * Reverses a string.
+ * @param value - The string to reverse
+ * @returns The reversed string
+ * @example reverseString('hello') // 'olleh'
+ */
+export function reverseString(value: string): string {
+  if (!value || !isString(value)) {
+    return '';
+  }
+  return value.split('').reverse().join('');
+}
