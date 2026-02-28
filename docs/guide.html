@@ -1,102 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Typezy Guide — Quickstart & Examples</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typezy — Quickstart Guide</title>
+  <meta name="description" content="Quickstart guide and examples for the Typezy utility library.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0f1724;--accent:#7c3aed;--muted:#94a3b8}
-    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(#071029,#071527);color:#e8f0fb}
-    .wrap{max-width:980px;margin:48px auto;padding:28px}
-    header{display:flex;gap:16px;align-items:center}
-    .badge{width:84px;height:84px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),#06b6d4);font-weight:800;color:#041124}
-    h1{margin:0;font-size:28px}
-    .lead{color:var(--muted);margin-top:6px}
-    .cols{display:grid;grid-template-columns:1fr 300px;gap:20px;margin-top:22px}
-    .card{background:rgba(255,255,255,0.02);padding:16px;border-radius:12px}
-    pre{background:#021826;padding:12px;border-radius:8px;color:#cfeffd;overflow:auto}
-    a.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#06b6d4);color:#041124;font-weight:700;text-decoration:none}
-    .muted{color:var(--muted)}
-    @media(max-width:880px){.cols{grid-template-columns:1fr}}
+    :root {
+      --bg-color: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-surface-hover: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --border-color: #334155;
+      --code-bg: #0b1120;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0 1.5rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--accent-color), #818cf8);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.4);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Content Typography */
+    h2 {
+      font-size: 1.6rem;
+      color: var(--text-main);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Code Blocks */
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background-color: var(--bg-surface);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #e2e8f0;
+    }
+
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    .keyword { color: #c678dd; }
+    .string { color: #98c379; }
+    .function { color: #61afef; }
+    .comment { color: #5c6370; font-style: italic; }
+
+    /* Cards */
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      transition: all 0.2s;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: var(--bg-surface-hover);
+      text-decoration: none;
+    }
+
   </style>
 </head>
 <body>
-  <div class="wrap">
+
+  <div class="container">
     <header>
-      <div class="badge">TZ</div>
+      <div class="logo-icon">TZ</div>
       <div>
-        <h1>Typezy — Quickstart Guide</h1>
-        <div class="lead">Small, explicit helpers for runtime type checks and assertions.</div>
+        <h1>Typezy Quickstart</h1>
+        <div class="subtitle">Essential patterns for runtime type checks and assertions.</div>
       </div>
     </header>
 
-    <div class="cols">
-      <main>
-        <section class="card">
-          <h2>Install</h2>
-          <pre><code>npm install --save typezy
-# or
-pnpm add typezy
-# or
-yarn add typezy</code></pre>
+    <main>
+      <div class="card">
+        <h2>Installation</h2>
+        <p>Typezy is available on npm and works beautifully with TypeScript out of the box.</p>
+<pre><code><span class="comment"># Using npm</span>
+npm install typezy
 
-          <h2 style="margin-top:12px">Basic usage</h2>
-          <p class="muted">Import only what you need — the package is ESM-friendly and tree-shakable.</p>
-          <pre><code>import { isEmail, assertNumber } from 'typezy'
+<span class="comment"># Using pnpm</span>
+pnpm add typezy</code></pre>
+      </div>
 
-if (isEmail('you@example.com')) {
-  // valid
-}
+      <div class="card">
+        <h2>Pattern 1: Type Guards</h2>
+        <p>Use <code>is*</code> functions when you want to conditionally handle different types or narrow the type for TypeScript without throwing an error.</p>
+<pre><code><span class="keyword">import</span> { isString, isNumber, isEmail } <span class="keyword">from</span> <span class="string">'typezy'</span>;
 
-assertNumber(42) // throws on invalid</code></pre>
-
-          <h3 style="margin-top:12px">Common functions</h3>
-          <ul class="muted">
-            <li><strong>Type checks:</strong> isString, isNumber, isArray</li>
-            <li><strong>Validators:</strong> isEmail, isUUID, isIPv4</li>
-            <li><strong>Assertions:</strong> assertString, assertNonEmptyArray</li>
-          </ul>
-        </section>
-
-        <section class="card" style="margin-top:14px">
-          <h2>Example — Form validation</h2>
-          <pre><code>import { assertEmail, assertNonEmptyString } from 'typezy'
-
-function submit(form) {
-  assertEmail(form.email)
-  assertNonEmptyString(form.name)
-  // safe to proceed
+<span class="keyword">function</span> <span class="function">handleInput</span>(value: <span class="keyword">unknown</span>) {
+  <span class="keyword">if</span> (<span class="function">isEmail</span>(value)) {
+    <span class="comment">// TypeScript correctly narrows `value` to string</span>
+    <span class="function">sendWelcomeEmail</span>(value);
+  } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="function">isNumber</span>(value)) {
+    <span class="comment">// `value` is a number</span>
+    console.<span class="function">log</span>(value * <span class="number">10</span>);
+  } <span class="keyword">else</span> {
+    <span class="comment">// Unknown type</span>
+    console.<span class="function">error</span>(<span class="string">"Invalid input provided."</span>);
+  }
 }</code></pre>
-        </section>
+      </div>
 
-        <section class="card" style="margin-top:14px">
-          <h2>Contributing</h2>
-          <p class="muted">See the repository for tests and contribution guidelines. Tests demonstrate typical usage across the library.</p>
-          <pre><code>npm run test
-# or
-pnpm test</code></pre>
-        </section>
-      </main>
+      <div class="card">
+        <h2>Pattern 2: Type Assertions</h2>
+        <p>Use <code>assert*</code> functions when your application requires the type to be correct to proceed safely, or you want to fail fast (e.g., API payloads, Configuration files).</p>
+<pre><code><span class="keyword">import</span> { assertPlainObject, assertString, assertNonEmptyArray } <span class="keyword">from</span> <span class="string">'typezy'</span>;
 
-      <aside>
-        <div class="card">
-          <h3>Resources</h3>
-          <ul class="muted">
-            <li><a href="index.html" style="color:#9ae6ff">Home docs</a></li>
-            <li><a href="../src/index.ts" style="color:#9ae6ff">Source</a></li>
-            <li><a href="../test/" style="color:#9ae6ff">Tests</a></li>
-          </ul>
-        </div>
+<span class="keyword">function</span> <span class="function">processConfig</span>(config: <span class="keyword">unknown</span>) {
+  <span class="comment">// 1. Must be an object</span>
+  <span class="function">assertPlainObject</span>(config, <span class="string">"Config must be an object"</span>);
+  
+  <span class="comment">// 2. Must have a valid string API key</span>
+  <span class="function">assertString</span>(config.apiKey, <span class="string">"Missing API Key string"</span>);
+  
+  <span class="comment">// 3. Must have endpoints defined</span>
+  <span class="function">assertNonEmptyArray</span>(config.endpoints);
 
-        <div class="card" style="margin-top:12px">
-          <h4>Contact</h4>
-          <p class="muted">Open an issue or PR on GitHub for questions or improvements.</p>
-          <p class="muted">Connect on LinkedIn: <a href="https://www.linkedin.com/in/ervishalg" style="color:#9ae6ff">ervishalg</a></p>
-        </div>
-      </aside>
-    </div>
+  <span class="comment">// Now safely proceed with the strongly-typed config</span>
+  <span class="function">initializeClient</span>(config.apiKey, config.endpoints);
+}</code></pre>
+      </div>
 
-    <footer style="margin-top:20px;color:var(--muted);font-size:13px">Made with care — explore the codebase for full API details.</footer>
+      <div class="card">
+        <h2>Pattern 3: Form Validation</h2>
+        <p>When you need to collect errors for a UI instead of throwing an exception, use the validation modules.</p>
+<pre><code><span class="keyword">import</span> { createValidator, validateRequired, validateEmail } <span class="keyword">from</span> <span class="string">'typezy/validate'</span>;
+
+<span class="comment">// Compose multiple validators into one</span>
+<span class="keyword">const</span> validateEmailField = <span class="function">createValidator</span>(
+  validateRequired,
+  validateEmail
+);
+
+<span class="keyword">const</span> result = <span class="function">validateEmailField</span>(user.email);
+<span class="keyword">if</span> (!result.valid) {
+  <span class="function">showError</span>(result.error); <span class="comment">// Displays localized or default error string</span>
+}</code></pre>
+      </div>
+
+      <a href="index.html" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        Back to Full Documentation
+      </a>
+    </main>
+
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <p>MIT License &copy; Vishal Gupta.</p>
+    </footer>
   </div>
+
 </body>
 </html>

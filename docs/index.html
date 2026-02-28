@@ -1,166 +1,679 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Typezy — Full Package Documentation</title>
-  <meta name="description" content="Typezy: runtime type checks and assertions for JavaScript and TypeScript." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typezy Documentation</title>
+  <meta name="description" content="A lightweight, zero-dependency TypeScript utility library for type checking and validation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#071026;--card:#061423;--accent:#7c3aed;--teal:#06b6d4;--muted:#94a3b8}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#071527);color:#e7f0fb}
-    .wrap{max-width:1150px;margin:36px auto;padding:28px}
-    header{display:flex;gap:20px;align-items:center}
-    .logo{width:92px;height:92px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:800;color:#041023;font-size:22px;box-shadow:0 10px 30px rgba(4,10,20,0.6)}
-    h1{margin:0;font-size:30px}
-    .lead{color:var(--muted);margin-top:6px;font-size:15px}
-    nav{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
-    a.cta{background:linear-gradient(90deg,var(--accent),var(--teal));padding:8px 12px;border-radius:10px;color:#041023;text-decoration:none;font-weight:700}
-    .cols{display:grid;grid-template-columns:1fr 340px;gap:24px;margin-top:26px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:20px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    .features{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .feature{flex:1;min-width:180px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
-    pre{background:#021826;padding:14px;border-radius:10px;color:#cfeffd;overflow:auto}
-    code{background:rgba(2,6,23,0.6);padding:4px 8px;border-radius:6px;color:#9ae6ff}
-    .muted{color:var(--muted)}
-    table{width:100%;border-collapse:collapse;margin-top:8px}
-    td,th{padding:10px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left}
-    footer{margin-top:28px;color:var(--muted);font-size:13px;text-align:center}
-    .example-title{display:flex;justify-content:space-between;align-items:center}
-    .pill{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:999px;font-size:13px;color:var(--muted)}
-    @media(max-width:920px){.cols{grid-template-columns:1fr}}
+    :root {
+      --bg-color: #0f172a;
+      --bg-surface: #1e293b;
+      --bg-surface-hover: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #38bdf8;
+      --accent-hover: #7dd3fc;
+      --border-color: #334155;
+      --code-bg: #0b1120;
+      --sidebar-width: 280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-surface-hover);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: var(--bg-surface);
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto;
+      padding: 2rem 1.5rem;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-color), #818cf8);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #0f172a;
+    }
+
+    .nav-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      background-color: var(--bg-surface-hover);
+      color: var(--text-main);
+    }
+
+    .nav-link.active {
+      background-color: rgba(56, 189, 248, 0.1);
+      color: var(--accent-color);
+      font-weight: 500;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 3rem 4rem;
+      max-width: 1000px;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text-main);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    h1 { font-size: 2.5rem; margin-top: 0; }
+    h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+    h3 { font-size: 1.4rem; }
+    
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    /* Code Blocks */
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background-color: var(--bg-surface);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #e2e8f0;
+    }
+
+    pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    /* Syntax Highlighting overrides */
+    .keyword { color: #c678dd; }
+    .string { color: #98c379; }
+    .function { color: #61afef; }
+    .comment { color: #5c6370; font-style: italic; }
+    .number { color: #d19a66; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text-main);
+      background-color: var(--bg-surface);
+    }
+
+    td {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    
+    td code {
+      color: var(--accent-color);
+      background: rgba(56, 189, 248, 0.1);
+    }
+
+    /* Badges */
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Hero section */
+    .hero {
+      margin-bottom: 4rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: #0f172a;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-surface-hover);
+      text-decoration: none;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      margin-top: 0;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Mobile Nav Toggle */
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 200;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 5rem 1.5rem 2rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">TZ</div>
-      <div>
-        <h1>Typezy — Runtime Type Checks & Assertions</h1>
-        <div class="lead">Tiny, explicit helpers: `is*` for guards and `assert*` for throwing clear errors. Tree-shakable and ESM-first.</div>
-        <nav>
-          <a class="cta" href="#install">Install</a>
-          <a class="cta" href="#examples">Examples</a>
-          <a class="cta" href="#api">API</a>
-          <a class="cta" href="#contribute">Contribute</a>
-        </nav>
-      </div>
-    </header>
 
-    <div class="cols">
-      <main>
-        <section class="card" id="install">
-          <h2>Install</h2>
-          <p class="muted">Add Typezy to your project with your preferred package manager.</p>
-          <pre><code>npm install --save typezy
-# or
-pnpm add typezy
-# or
-yarn add typezy</code></pre>
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </button>
 
-          <div class="features">
-            <div class="feature">
-              <strong>Small & focused</strong>
-              <div class="muted">Minimal helpers that do one job well.</div>
-            </div>
-            <div class="feature">
-              <strong>Tree-shakeable</strong>
-              <div class="muted">Import single functions to keep bundles tiny.</div>
-            </div>
-            <div class="feature">
-              <strong>Well-tested</strong>
-              <div class="muted">Comprehensive unit tests show example usage.</div>
-            </div>
-          </div>
-        </section>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="#" class="logo">
+      <div class="logo-icon">TZ</div>
+      Typezy
+    </a>
 
-        <section class="card" id="examples" style="margin-top:16px">
-          <div class="example-title">
-            <h2>Examples</h2>
-            <div class="pill">Practical snippets</div>
-          </div>
-
-          <h4 style="margin-top:10px">1) Form validation (client-side)</h4>
-          <pre><code>import { isEmail, assertNonEmptyString } from 'typezy'
-
-function validateRegistration(data) {
-  if (!isEmail(data.email)) return { ok:false, error:'Invalid email' }
-  assertNonEmptyString(data.name, 'Name is required')
-  return { ok:true }
-}</code></pre>
-
-          <h4 style="margin-top:10px">2) API input guards (server-side)</h4>
-          <pre><code>import { isObject, assertInRange, isInteger } from 'typezy'
-
-function handleListRequest(qs) {
-  const limit = isInteger(qs.limit) ? Number(qs.limit) : 20
-  assertInRange(limit, 1, 100)
-  // proceed using safe `limit`
-}</code></pre>
-
-          <h4 style="margin-top:10px">3) Safe parsing & validation</h4>
-          <pre><code>import { isJSON, isObject } from 'typezy'
-
-function parsePayload(raw) {
-  if (!isJSON(raw)) throw new Error('Bad payload')
-  const parsed = JSON.parse(raw)
-  if (!isObject(parsed)) throw new Error('Expected object')
-  return parsed
-}</code></pre>
-
-          <h4 style="margin-top:10px">4) Tests: assert helpers</h4>
-          <pre><code>import { assertUUID, assertEmail } from 'typezy'
-
-test('user payload', ()=>{
-  assertUUID(user.id)
-  assertEmail(user.email)
-})</code></pre>
-        </section>
-
-        <section class="card" id="api" style="margin-top:16px">
-          <h2>API Highlights</h2>
-          <p class="muted">Common helpers — see code for the full list and exact semantics.</p>
-          <table>
-            <thead><tr><th>Function</th><th>Type</th><th>Notes</th></tr></thead>
-            <tbody>
-              <tr><td><strong>isString(v)</strong></td><td>Guard</td><td>True for string primitives</td></tr>
-              <tr><td><strong>isNumber(v)</strong></td><td>Guard</td><td>True for finite numbers</td></tr>
-              <tr><td><strong>isEmail(v)</strong></td><td>Validator</td><td>Lightweight RFC-like check</td></tr>
-              <tr><td><strong>isUUID(v)</strong></td><td>Validator</td><td>v4 UUID format</td></tr>
-              <tr><td><strong>assertString(v,msg?)</strong></td><td>Assertion</td><td>Throws TypeError on failure</td></tr>
-              <tr><td><strong>assertInRange(n,min,max)</strong></td><td>Assertion</td><td>Throws RangeError when out of bounds</td></tr>
-            </tbody>
-          </table>
-        </section>
-      </main>
-
-      <aside>
-        <div class="card">
-          <h3>Quick links</h3>
-          <ul class="muted">
-            <li><a href="../README.md" style="color:#9ae6ff">README</a></li>
-            <li><a href="../src/index.ts" style="color:#9ae6ff">Source: src/index.ts</a></li>
-            <li><a href="../test/" style="color:#9ae6ff">Test suite</a></li>
-          </ul>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h4>Install & test</h4>
-          <pre><code>npm install
-npm run test
-# or
-pnpm test</code></pre>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h4>License</h4>
-          <p class="muted">MIT — <a href="../LICENSE" style="color:#9ae6ff">LICENSE</a></p>
-        </div>
-      </aside>
+    <div class="nav-group">
+      <div class="nav-title">Getting Started</div>
+      <a href="#introduction" class="nav-link active">Introduction</a>
+      <a href="#installation" class="nav-link">Installation</a>
+      <a href="#features" class="nav-link">Features</a>
     </div>
 
-    <footer>
-      Built with care • Open issues or PRs on GitHub for improvements.
+    <div class="nav-group">
+      <div class="nav-title">Core API</div>
+      <a href="#type-checks" class="nav-link">Type Checks (is*)</a>
+      <a href="#assertions" class="nav-link">Assertions (assert*)</a>
+      <a href="#validation" class="nav-link">Form Validation</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">Utilities</div>
+      <a href="#string-utils" class="nav-link">String Utilities</a>
+      <a href="#number-utils" class="nav-link">Number Utilities</a>
+      <a href="#array-utils" class="nav-link">Array Utilities</a>
+      <a href="#object-utils" class="nav-link">Object Utilities</a>
+      <a href="#date-utils" class="nav-link">Date Utilities</a>
+      <a href="#env-utils" class="nav-link">Env Variables</a>
+      <a href="#url-utils" class="nav-link">URL & Routing</a>
+      <a href="#async-utils" class="nav-link">Async & Error</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-title">TypeScript</div>
+      <a href="#types" class="nav-link">Utility Types</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <section class="hero" id="introduction">
+      <h1>Typezy</h1>
+      <p style="font-size: 1.25rem;">A lightweight, zero-dependency TypeScript utility library for type checking, assertions, and validation.</p>
+      
+      <div class="badge-container">
+        <span class="badge">npm v1.0.3</span>
+        <span class="badge">Zero Dependencies</span>
+        <span class="badge">100% TypeScript</span>
+        <span class="badge">MIT License</span>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="#installation" class="btn btn-primary">Get Started</a>
+        <a href="https://github.com/vishalgupta2k/typezy" target="_blank" class="btn btn-secondary">GitHub</a>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Why Typezy?</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title">Zero Dependencies</h3>
+          <p class="feature-desc">No external runtime dependencies to bloat your node_modules. Lean and fast.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3 class="feature-title">Tree-shakeable</h3>
+          <p class="feature-desc">Import only what you need. Available in ESM and CJS builds for all environments.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Type-Safe</h3>
+          <p class="feature-desc">Acts as TypeScript type guards to perfectly narrow your types across your app.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚛️</div>
+          <h3 class="feature-title">React / Next.js Ready</h3>
+          <p class="feature-desc">Packed with utilities like safe URL parsing, Env validation, and a clsx-like `cx` function.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="installation">
+      <h2>Installation</h2>
+      <p>Install Typezy using your favorite package manager.</p>
+      
+<pre><code><span class="comment"># npm</span>
+npm install typezy
+
+<span class="comment"># yarn</span>
+yarn add typezy
+
+<span class="comment"># pnpm</span>
+pnpm add typezy</code></pre>
+      
+      <p>Typezy provides submodules for better tree-shaking, though modern bundlers handle the root import fine.</p>
+<pre><code><span class="keyword">import</span> { isString } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+<span class="keyword">import</span> { assertString } <span class="keyword">from</span> <span class="string">'typezy/assert'</span>;
+<span class="keyword">import</span> { validateEmail } <span class="keyword">from</span> <span class="string">'typezy/validate'</span>;
+<span class="keyword">import</span> <span class="keyword">type</span> { DeepPartial } <span class="keyword">from</span> <span class="string">'typezy/types'</span>;</code></pre>
+    </section>
+
+    <section id="type-checks">
+      <h2>Type Checks (is*)</h2>
+      <p>All <code>is*</code> functions return a boolean and act as TypeScript <strong>Type Guards</strong>. This means when used in an <code>if</code> statement, TypeScript will automatically narrow the type inside the block.</p>
+      
+<pre><code><span class="keyword">import</span> { isString, isNumber, isPlainObject, isEmail } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="keyword">function</span> <span class="function">processValue</span>(value: <span class="keyword">unknown</span>) {
+  <span class="keyword">if</span> (<span class="function">isString</span>(value)) {
+    <span class="comment">// TypeScript knows `value` is a string here</span>
+    <span class="keyword">return</span> value.<span class="function">toUpperCase</span>();
+  }
+  
+  <span class="keyword">if</span> (<span class="function">isNumber</span>(value)) {
+    <span class="comment">// TypeScript knows `value` is a number here</span>
+    <span class="keyword">return</span> value.<span class="function">toFixed</span>(<span class="number">2</span>);
+  }
+}</code></pre>
+
+      <h3>Common Check Functions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Function</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>isString(val)</code></td><td>Checks if value is a string primitive</td></tr>
+          <tr><td><code>isNumber(val)</code></td><td>Checks if value is a finite number (excludes NaN)</td></tr>
+          <tr><td><code>isBoolean(val)</code></td><td>Checks if value is a boolean primitive</td></tr>
+          <tr><td><code>isPlainObject(val)</code></td><td>Checks if value is a plain JavaScript object</td></tr>
+          <tr><td><code>isArray(val)</code></td><td>Checks if value is an Array</td></tr>
+          <tr><td><code>isNonEmptyArray(val)</code></td><td>Checks if value is an array with at least one element</td></tr>
+          <tr><td><code>isNullish(val)</code></td><td>Checks if value is null or undefined</td></tr>
+          <tr><td><code>isDefined(val)</code></td><td>Checks if value is not null and not undefined</td></tr>
+        </tbody>
+      </table>
+      <p><em>Check the README for the exhaustive list of over 50 type checking functions including formats (UUID, HexColor, JWT) and Environment detections (Browser, Node).</em></p>
+    </section>
+
+    <section id="assertions">
+      <h2>Assertions (assert*)</h2>
+      <p>Assertion functions enforce types at runtime. They throw an <code>AssertionError</code> if the check fails, and narrow the type in TypeScript if it passes.</p>
+      
+<pre><code><span class="keyword">import</span> { assertString, assertPlainObject, assertEmail, AssertionError } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="keyword">function</span> <span class="function">processConfig</span>(config: <span class="keyword">unknown</span>) {
+  <span class="function">assertPlainObject</span>(config);
+  <span class="comment">// config is Record&lt;string, unknown&gt;</span>
+  
+  <span class="function">assertString</span>(config.name, <span class="string">'Name must be a valid string'</span>);
+  <span class="comment">// config.name is string</span>
+}
+
+<span class="keyword">try</span> {
+  <span class="function">assertEmail</span>(<span class="string">'invalid-email'</span>, <span class="string">'Please provide a valid email address'</span>);
+} <span class="keyword">catch</span> (error) {
+  <span class="keyword">if</span> (error <span class="keyword">instanceof</span> AssertionError) {
+    console.<span class="function">error</span>(error.message); <span class="comment">// "Please provide a valid email address"</span>
+  }
+}</code></pre>
+    </section>
+
+    <section id="validation">
+      <h2>Form Validation Pattern</h2>
+      <p>Instead of throwing errors, the validation pattern returns a safe result object: <code>{ valid: boolean, error?: string }</code>. This is perfect for form validation and UI state.</p>
+      
+<pre><code><span class="keyword">import</span> { createValidator, validateRequired, validateEmail, validateMinLength, collectErrors } <span class="keyword">from</span> <span class="string">'typezy/validate'</span>;
+
+<span class="comment">// Compose validation rules to fail fast (returns first error)</span>
+<span class="keyword">const</span> validateUsername = <span class="function">createValidator</span>(
+  validateRequired,
+  (v) =&gt; <span class="function">validateMinLength</span>(v, <span class="number">3</span>)
+);
+
+<span class="function">validateUsername</span>(<span class="string">'ab'</span>); 
+<span class="comment">// { valid: false, error: 'Must be at least 3 characters' }</span>
+
+<span class="function">validateUsername</span>(<span class="string">'alice'</span>); 
+<span class="comment">// { valid: true }</span>
+
+<span class="comment">// Or collect ALL errors for a field</span>
+<span class="keyword">const</span> errors = <span class="function">collectErrors</span>(<span class="string">'x'</span>, validateRequired, (v) =&gt; <span class="function">validateMinLength</span>(v, <span class="number">3</span>));
+<span class="comment">// ['Must be at least 3 characters']</span></code></pre>
+    </section>
+
+    <section id="string-utils">
+      <h2>String Utilities</h2>
+      <p>Safe string manipulation and sanitization.</p>
+      <table>
+        <tbody>
+          <tr><td><code>capitalize(val)</code> / <code>toCamelCase(val)</code></td><td>Case converters</td></tr>
+          <tr><td><code>escapeHtml(val)</code> / <code>stripHtml(val)</code></td><td>XSS protection and HTML cleanup</td></tr>
+          <tr><td><code>slugify(val)</code></td><td>Converts "Hello World!" to "hello-world"</td></tr>
+          <tr><td><code>truncate(val, max, suffix?)</code></td><td>Safely truncates long strings</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="number-utils">
+      <h2>Number Utilities</h2>
+      <p>Formatting and math helpers.</p>
+<pre><code><span class="keyword">import</span> { clamp, formatCurrency, formatCompact } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="function">clamp</span>(<span class="number">150</span>, <span class="number">0</span>, <span class="number">100</span>);            <span class="comment">// 100</span>
+<span class="function">formatCurrency</span>(<span class="number">1234.5</span>, <span class="string">'USD'</span>); <span class="comment">// '$1,234.50'</span>
+<span class="function">formatCompact</span>(<span class="number">1500000</span>);        <span class="comment">// '1.5M'</span></code></pre>
+    </section>
+
+    <section id="env-utils">
+      <h2>Environment Variables</h2>
+      <p>Parse and strictly validate Environment Variables at startup (ideal for Next.js/Node config).</p>
+<pre><code><span class="keyword">import</span> { requireEnv, requireEnvNumber, requireEnvBoolean } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="comment">// Throws cleanly if missing or invalid type</span>
+<span class="keyword">const</span> apiUrl = <span class="function">requireEnv</span>(<span class="string">'API_URL'</span>);
+<span class="keyword">const</span> port = <span class="function">requireEnvNumber</span>(<span class="string">'PORT'</span>);
+<span class="keyword">const</span> debug = <span class="function">requireEnvBoolean</span>(<span class="string">'DEBUG'</span>);</code></pre>
+    </section>
+
+    <section id="url-utils">
+      <h2>URL & Routing Utils</h2>
+      <p>Safely parse and merge URL params.</p>
+<pre><code><span class="keyword">import</span> { parseSearchParams, buildQueryString, mergeSearchParams } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="function">parseSearchParams</span>(<span class="string">'https://ex.com?page=1&amp;sort=name'</span>);
+<span class="comment">// { page: '1', sort: 'name' }</span>
+
+<span class="function">mergeSearchParams</span>(<span class="string">'https://ex.com?page=1'</span>, { page: <span class="string">'2'</span> });
+<span class="comment">// 'https://ex.com/?page=2'</span></code></pre>
+    </section>
+
+    <section id="async-utils">
+      <h2>Async & Error Handling</h2>
+      <p>Go-style error handling and retry logic.</p>
+<pre><code><span class="keyword">import</span> { tryCatch, timeout, retry } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="comment">// Go-style error handling avoids try/catch block scoping issues</span>
+<span class="keyword">const</span> [user, error] = <span class="keyword">await</span> <span class="function">tryCatch</span>(<span class="function">fetchUser</span>(id));
+<span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="function">handleError</span>(error);
+
+<span class="comment">// Retry flaky network calls automatically</span>
+<span class="keyword">const</span> result = <span class="keyword">await</span> <span class="function">retry</span>(() =&gt; <span class="function">fetch</span>(<span class="string">'/api/flaky'</span>), {
+  attempts: <span class="number">3</span>,
+  delay: <span class="number">1000</span>,
+  backoff: <span class="keyword">true</span>,
+});</code></pre>
+    </section>
+
+    <section id="types">
+      <h2>TypeScript Utility Types</h2>
+      <p>Typezy provides powerful generic utility types for advanced TypeScript usage.</p>
+      <table>
+        <tbody>
+          <tr><td><code>DeepPartial&lt;T&gt;</code></td><td>Recursively makes all properties optional</td></tr>
+          <tr><td><code>Brand&lt;T, Name&gt;</code></td><td>Creates a nominal/branded type (e.g., <code>Brand&lt;string, 'UserId'&gt;</code>)</td></tr>
+          <tr><td><code>Prettify&lt;T&gt;</code></td><td>Flattens type intersections to make IDE tooltips readable</td></tr>
+          <tr><td><code>NonEmptyArray&lt;T&gt;</code></td><td>Tuple type guaranteeing at least one element</td></tr>
+          <tr><td><code>UnwrapPromise&lt;T&gt;</code></td><td>Extracts the resolved type from a Promise</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <p>MIT License &copy; Vishal Gupta. Built with care for the TypeScript community.</p>
     </footer>
-  </div>
+
+  </main>
+
+  <script>
+    // Simple smooth scroll and active state management for sidebar
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Close mobile menu on click
+        document.querySelector('.sidebar').classList.remove('open');
+      });
+    });
+
+    // Intersection Observer to update active state on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -80% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
 </body>
 </html>
