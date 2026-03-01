@@ -1,4 +1,4 @@
-export type { ValidationResult, ValidationRule } from './types.js';
+export type { ValidationResult, ValidationRule, Schema, SchemaValidationResult } from './types.js';
 
 export {
   validateRequired,
@@ -13,4 +13,5 @@ export {
   validatePattern,
   createValidator,
   collectErrors,
+  validateSchema,
 } from './validators.js';

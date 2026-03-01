@@ -262,6 +262,9 @@ export { maskString, pluralize } from './utils/index.js';
 // Class name utility
 export { cx } from './utils/index.js';
 
+// Frontend & Async Utilities
+export { debounce, throttle, deepClone, sleep, delay } from './utils/index.js';
+
 // Validation
 export {
   validateRequired,
@@ -276,8 +279,14 @@ export {
   validatePattern,
   createValidator,
   collectErrors,
+  validateSchema,
 } from './validate/index.js';
-export type { ValidationResult, ValidationRule } from './validate/index.js';
+export type {
+  ValidationResult,
+  ValidationRule,
+  Schema,
+  SchemaValidationResult,
+} from './validate/index.js';
 
 // TypeScript utility types
 export type {

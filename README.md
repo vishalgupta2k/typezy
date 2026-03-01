@@ -17,9 +17,9 @@ A lightweight, zero-dependency TypeScript utility library for type checking and 
 - 🔒 **Type-safe** - Full TypeScript support with type guards
 - 🛡️ **Assertion functions** - Runtime type assertions with TypeScript narrowing
 - ✅ **Well-tested** - Comprehensive test coverage
-- 🧩 **Validation pattern** - Composable validators with error messages for forms
+- 🧩 **Validation pattern** - Composable validators and **Object Schema Validation**
 - 🔧 **Utility types** - Reusable TypeScript utility types (`DeepPartial`, `Brand`, `Prettify`, etc.)
-- ⚛️ **React/Next.js ready** - Env validation, URL utils, `tryCatch`, `cx`, and more
+- ⚛️ **React/Next.js ready** - Env validation, URL utils, `tryCatch`, `cx`, `debounce`, `throttle`, and more
 
 ## Installation
 
@@ -540,25 +540,54 @@ Composable validation for form fields — returns `{ valid, error? }` objects:
 | `validatePattern(value, regex, message?)` | Validates against a regex pattern |
 | `createValidator(...rules)` | Composes rules, returns first error |
 | `collectErrors(value, ...rules)` | Runs all rules, collects all errors |
+| `validateSchema(data, schema)` | Validates an object against a schema |
 
 ```typescript
-import { createValidator, validateRequired, validateEmail, validateMinLength, collectErrors } from 'typezy/validate';
+import { validateSchema, validateRequired, validateEmail, validateInRange } from 'typezy/validate';
 
-// Compose validation rules
-const validateUsername = createValidator(
-  validateRequired,
-  (v) => validateMinLength(v, 3),
-);
+const schema = {
+  email: [validateRequired, validateEmail],
+  age: validateInRange(18, 99)
+};
 
-validateUsername('ab');  // { valid: false, error: 'Must be at least 3 characters' }
-validateUsername('alice'); // { valid: true }
-
-// Collect all errors at once
-const errors = collectErrors('x', validateRequired, (v) => validateMinLength(v, 3));
-// ['Must be at least 3 characters']
+const result = validateSchema({ email: 'user@example.com', age: 25 }, schema);
+if (result.valid) {
+  // result.data is typed correctly
+  console.log(result.data.email);
+} else {
+  // result.errors contains field-specific error arrays
+  console.error(result.errors.email);
+}
 ```
 
-### Object Utilities
+### Frontend & Async Utilities
+
+Highly-requested utilities for UI events and timing:
+
+| Function | Description |
+|----------|-------------|
+| `debounce(fn, wait)` | Delays execution until after `wait` ms of inactivity |
+| `throttle(fn, limit)` | Limits execution to once every `limit` ms |
+| `deepClone(value)` | Creates a deep clone of a value (structuredClone) |
+| `sleep(ms)` / `delay(ms)` | Promisified timeout for async delays |
+
+```typescript
+import { debounce, throttle, deepClone, sleep } from 'typezy';
+
+// Debounce search input
+const onSearch = debounce((q) => fetchResults(q), 300);
+
+// Throttle scroll handler
+const onScroll = throttle(() => updateProgress(), 100);
+
+// Safe deep clone
+const copy = deepClone(originalObj);
+
+// Async delay
+await sleep(1000);
+```
+
+### Async & Error Utilities
 
 Common object manipulation helpers (no lodash needed):
 

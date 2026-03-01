@@ -400,6 +400,7 @@
       <a href="#env-utils" class="nav-link">Env Variables</a>
       <a href="#url-utils" class="nav-link">URL & Routing</a>
       <a href="#async-utils" class="nav-link">Async & Error</a>
+      <a href="#frontend-utils" class="nav-link">Frontend Utils</a>
     </div>
 
     <div class="nav-group">
@@ -449,7 +450,7 @@
         <div class="feature-card">
           <div class="feature-icon">⚛️</div>
           <h3 class="feature-title">React / Next.js Ready</h3>
-          <p class="feature-desc">Packed with utilities like safe URL parsing, Env validation, and a clsx-like `cx` function.</p>
+          <p class="feature-desc">Packed with utilities like safe URL parsing, Env validation, debounce, throttle, and a clsx-like `cx` function.</p>
         </div>
       </div>
     </section>
@@ -557,8 +558,18 @@ pnpm add typezy</code></pre>
 
 <span class="comment">// Or collect ALL errors for a field</span>
 <span class="keyword">const</span> errors = <span class="function">collectErrors</span>(<span class="string">'x'</span>, validateRequired, (v) =&gt; <span class="function">validateMinLength</span>(v, <span class="number">3</span>));
-<span class="comment">// ['Must be at least 3 characters']</span></code></pre>
+<span class="comment">// ['Must be at least 3 characters']</span>
+
+<span class="comment">// Validate an entire object against a schema</span>
+<span class="keyword">const</span> schema = {
+  email: [validateRequired, validateEmail],
+  age: <span class="function">validateInRange</span>(<span class="number">18</span>, <span class="number">99</span>)
+};
+<span class="keyword">const</span> result = <span class="function">validateSchema</span>({ email: <span class="string">'hi'</span>, age: <span class="number">10</span> }, schema);
+<span class="keyword">if</span> (!result.valid) console.<span class="function">log</span>(result.errors);
+</code></pre>
     </section>
+
 
     <section id="string-utils">
       <h2>String Utilities</h2>
@@ -621,6 +632,25 @@ pnpm add typezy</code></pre>
   delay: <span class="number">1000</span>,
   backoff: <span class="keyword">true</span>,
 });</code></pre>
+    </section>
+
+    <section id="frontend-utils">
+      <h2>Frontend Utilities</h2>
+      <p>Essential helpers for UI interactions and timing.</p>
+<pre><code><span class="keyword">import</span> { debounce, throttle, deepClone, sleep } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="comment">// Debounce expensive search calls</span>
+<span class="keyword">const</span> onSearch = <span class="function">debounce</span>((q) =&gt; <span class="function">fetchData</span>(q), <span class="number">300</span>);
+
+<span class="comment">// Throttle UI updates</span>
+<span class="keyword">const</span> onScroll = <span class="function">throttle</span>(() =&gt; <span class="function">updateScrollState</span>(), <span class="number">100</span>);
+
+<span class="comment">// Deep clone safely</span>
+<span class="keyword">const</span> copy = <span class="function">deepClone</span>(myNestedObject);
+
+<span class="comment">// Async pause</span>
+<span class="keyword">await</span> <span class="function">sleep</span>(<span class="number">1000</span>);
+</code></pre>
     </section>
 
     <section id="types">
