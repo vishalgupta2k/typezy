@@ -119,3 +119,9 @@ export { maskString, pluralize } from './displayUtils.js';
 
 // Class name utility
 export { cx } from './classNameUtils.js';
+
+// Frontend & Async Utilities
+export { debounce } from './debounce.js';
+export { throttle } from './throttle.js';
+export { deepClone } from './deepClone.js';
+export { sleep, delay } from './sleep.js';

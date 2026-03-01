@@ -236,18 +236,39 @@ pnpm add typezy</code></pre>
       <div class="card">
         <h2>Pattern 3: Form Validation</h2>
         <p>When you need to collect errors for a UI instead of throwing an exception, use the validation modules.</p>
-<pre><code><span class="keyword">import</span> { createValidator, validateRequired, validateEmail } <span class="keyword">from</span> <span class="string">'typezy/validate'</span>;
+<pre><code><span class="keyword">import</span> { createValidator, validateRequired, validateEmail, validateSchema } <span class="keyword">from</span> <span class="string">'typezy/validate'</span>;
 
-<span class="comment">// Compose multiple validators into one</span>
+<span class="comment">// 1. Compose multiple validators into one</span>
 <span class="keyword">const</span> validateEmailField = <span class="function">createValidator</span>(
   validateRequired,
   validateEmail
 );
 
-<span class="keyword">const</span> result = <span class="function">validateEmailField</span>(user.email);
+<span class="comment">// 2. Validate an entire object (Schema)</span>
+<span class="keyword">const</span> schema = {
+  email: [validateRequired, validateEmail],
+  name: validateRequired
+};
+
+<span class="keyword">const</span> result = <span class="function">validateSchema</span>(formData, schema);
 <span class="keyword">if</span> (!result.valid) {
-  <span class="function">showError</span>(result.error); <span class="comment">// Displays localized or default error string</span>
+  <span class="function">setErrors</span>(result.errors); <span class="comment">// Map of field errors</span>
 }</code></pre>
+      </div>
+
+      <div class="card">
+        <h2>Pattern 4: Frontend Optimization</h2>
+        <p>Typezy includes essential tools for optimizing UI performance and handling async operations.</p>
+<pre><code><span class="keyword">import</span> { debounce, throttle, deepClone, sleep } <span class="keyword">from</span> <span class="string">'typezy'</span>;
+
+<span class="comment">// Debounce search calls</span>
+<span class="keyword">const</span> onSearch = <span class="function">debounce</span>((q) =&gt; <span class="function">fetchResults</span>(q), <span class="number">300</span>);
+
+<span class="comment">// Safe deep clone for state updates</span>
+<span class="keyword">const</span> newState = <span class="function">deepClone</span>(oldState);
+
+<span class="comment">// Async pause</span>
+<span class="keyword">await</span> <span class="function">sleep</span>(<span class="number">500</span>);</code></pre>
       </div>
 
       <a href="index.html" class="btn">

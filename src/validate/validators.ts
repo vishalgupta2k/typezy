@@ -8,7 +8,8 @@ import type { PasswordOptions } from '../is/isStrongPassword.js';
 import { isDefined } from '../is/isDefined.js';
 import { isNumber } from '../is/isNumber.js';
 import { isInRange } from '../is/isInRange.js';
-import type { ValidationResult, ValidationRule } from './types.js';
+import { isPlainObject } from '../is/isPlainObject.js';
+import type { ValidationResult, ValidationRule, Schema, SchemaValidationResult } from './types.js';
 
 /**
  * Validates that a value is defined (not null/undefined) and not an empty string.
@@ -196,4 +197,59 @@ export function collectErrors(...rules: ValidationRule[]) {
 
     return errors;
   };
+}
+
+/**
+ * Validates an object against a schema of validation rules.
+ * @param data - The object to validate
+ * @param schema - The schema of rules (one or more per property)
+ * @returns SchemaValidationResult with validated data or a record of field errors
+ * @example
+ * const schema = {
+ *   email: [validateRequired, validateEmail],
+ *   age: validateInRange(18, 99)
+ * };
+ * const result = validateSchema({ email: 'hi', age: 10 }, schema);
+ * if (!result.valid) console.log(result.errors);
+ */
+export function validateSchema<T extends Record<string, any>>(
+  data: unknown,
+  schema: Schema<T>,
+): SchemaValidationResult<T> {
+  if (!isPlainObject(data)) {
+    return { 
+      valid: false, 
+      errors: { _root: ['Expected an object'] } as any 
+    };
+  }
+
+  const errors: Partial<Record<keyof T, string[]>> = {};
+  let isValid = true;
+
+  for (const key in schema) {
+    if (!Object.prototype.hasOwnProperty.call(schema, key)) continue;
+
+    const rules = Array.isArray(schema[key]) 
+      ? (schema[key] as ValidationRule[]) 
+      : [schema[key] as ValidationRule];
+    
+    const value = (data as any)[key];
+    const fieldErrors: string[] = [];
+
+    for (const rule of rules) {
+      const result = rule(value);
+      if (!result.valid && result.error) {
+        fieldErrors.push(result.error);
+      }
+    }
+
+    if (fieldErrors.length > 0) {
+      errors[key] = fieldErrors;
+      isValid = false;
+    }
+  }
+
+  return isValid 
+    ? { valid: true, data: data as T } 
+    : { valid: false, errors };
 }
